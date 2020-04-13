@@ -52,7 +52,8 @@ class playGame extends Phaser.Scene{
         super('PlayGame');
     }
     preload(){
-        this.load.image('bird', './assets/test.png');
+        this.load.image('bird', './assets/smol.gif');
+        // this.load.image('bird', './assets/test.png');
         this.load.image('pipe', './assets/pipe.png');
         // this.load.image('bird', 'https://dummyimage.com/30x30/000/fff');
         // this.load.image('pipe', 'https://dummyimage.com/600x400/000/fff');
@@ -69,6 +70,28 @@ class playGame extends Phaser.Scene{
         this.bird = this.physics.add.sprite(80, game.config.height / 2, 'bird');
         this.bird.body.gravity.y = gameOptions.birdGravity;
         this.input.on('pointerdown', this.flap, this);
+        // this.cursors = this.input.keyboard.addKeys({up:KeyCodes.W,down:KeyCodes.S,left:KeyCodes.A,right:KeyCodes.S});﻿
+        // this.input.keyboard.addKeys('w,S,A,D');
+        // console.log('zezz', Phaser.Keyboard);
+        // this.input.keyboard.addKeys( { 'up': Phaser.Keyboard.W, 'down': Phaser.Keyboard.S, 'left': Phaser.Keyboard.A, 'right': Phaser.Keyboard.D } );
+        // this.input.on('up', () => {console.log('called w')}, this);
+        this.input.keyboard.on('keydown_W', function (event) {
+            console.log('ang w', this, 'asd, eve',event);
+            this.flap();
+            // W key down
+       }, this);
+       this.input.keyboard.on('keydown_S', function (event) {
+            console.log('ang s');
+            this.flap();
+        }, this);
+        this.input.keyboard.on('keydown_A', function (event) {
+             console.log('ang a');
+             this.flap();
+         }, this);
+         this.input.keyboard.on('keydown_D', function (event) {
+              console.log('ang d');
+              this.flap();
+          }, this);
         this.score = 0;
         this.topScore = localStorage.getItem(gameOptions.localStorageName) == null ? 0 : localStorage.getItem(gameOptions.localStorageName);
         this.scoreText = this.add.text(10, 10, '');
@@ -104,7 +127,8 @@ class playGame extends Phaser.Scene{
         return rightmostPipe;
     }
     update(){
-        console.log('updet');
+        console.log('updetzzzz');
+        // /*
         this.physics.world.collide(this.bird, this.pipeGroup, function(){
             this.die();
         }, null, this);
@@ -118,7 +142,8 @@ class playGame extends Phaser.Scene{
                     this.placePipes(true);
                 }
             }
-        }, this)
+        }, this);
+        // */
     }
     die(){
         localStorage.setItem(gameOptions.localStorageName, Math.max(this.score, this.topScore));
